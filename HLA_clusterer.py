@@ -88,6 +88,7 @@ def run():
     print(data2[:,1])
 
     #saving of cluster memberships into .json files which can be located in ~/databases
+    print(labels)
     dict = pd.DataFrame(data=labels, index=datamhcI.index, columns=['sim_class']).to_dict()["sim_class"]
     dict2 = pd.DataFrame(data=labels2, index=datamhcII.index, columns=['sim_class']).to_dict()["sim_class"]
 
@@ -133,5 +134,5 @@ if __name__ == '__main__':
     print("Clustering done. Please proceed to CA.py to see how the clustered alleles correlate with response "
           "patterns of specific CMV antigens.")
     print("Keeping this window open will help in reading the correspondence analysis charts later, "
-          "though the cluster memberships can be seen in the output/cluster_data folder.")
+          "though the cluster memberships can be seen in the ~/output/cluster_data folder.")
     input('Press ENTER to exit')

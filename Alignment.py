@@ -155,7 +155,7 @@ class Alignment(Cmd):
         file.write(self.info)
         file.write('\nHLA sequence similarity between {} and {} is {}'.format(self.alleles[0], self.alleles[1], self.similarity))
         file.close()
-        print("Mismatch information for {} vs {} has been saved as '{}.txt' in the output\\alignments\{} directory."
+        print("Mismatch information for {} vs {} has been saved as '{}.txt' in the ~output\\alignments\{} directory."
               .format(self.alleles[0], self.alleles[1], self.outputname, self.outputname))
 
     def matrix_refer(self, key):
@@ -189,7 +189,7 @@ class Alignment(Cmd):
     def save_heatmap(self):
         self.fig.savefig('{}.png'.format(self.outputname))
         # bbox_inches = 'tight'
-        print("Heatmap for {} vs {} saved as '{}.png' in the output\\alignments\{} directory."
+        print("Heatmap for {} vs {} saved as '{}.png' in the ~output\\alignments\{} directory."
               .format(self.alleles[0], self.alleles[1], self.outputname, self.outputname))
 
     def align(self):
@@ -252,5 +252,5 @@ if __name__ == '__main__':
     To do all three at once, use the command 'compare'.
 
     If you wish to save the mismatch information and the heatmap as files, input the command 'save filename', where
-    filename would be the name of your desired files. They can be found in the output\\alignments\\filename directory.
+    filename would be the name of your desired files. They can be found in the ~output\\alignments\\filename directory.
     """)

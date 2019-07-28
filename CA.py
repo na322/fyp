@@ -24,7 +24,9 @@ except FileNotFoundError:
     print("Please ensure 'MHCII_clusters.txt' is in the databases folder.")
     raise
 
-
+# adds 1 to all cluster numbers for labelling in CA graphs later
+clusters = {k: v+1 for k, v in clusters.items()}
+clusters2 = {k: v+1 for k, v in clusters2.items()}
 
 def run():
     '''
@@ -97,19 +99,17 @@ def run():
         # replaces allele names with cluster membership
         if t in mhcI:
             mhcI_ca.extend([one, two])
-            main[[one, two]] = main[[one, two]].replace(clusters).astype(str)
+            main[[one, two]] = main[[one, two]].fillna(0).replace(clusters).astype(int).astype(str) # changing types from float to int to str removes decimals
+
         else:
             mhcII_ca.extend([one, two])
-            main[[one, two]] = main[[one, two]].replace(clusters2).astype(str)
-
-        # gets rid of the decimals formed when converting int to string
-        main[[one, two]] = main[[one, two]].apply(lambda x: x.str[:-2])
+            main[[one, two]] = main[[one, two]].fillna(0).replace(clusters2).astype(int).astype(str) # changing types from float to int to str removes decimals
 
         # separates the clustered alleles from vaccinated donors and non-vaccinated donors
         main.loc[main['CMVVASC'] == 'Yes', one] = "V" + main[one]
         main.loc[main['CMVVASC'] == 'Yes', two] = "V" + main[two]
     # drops the columns with the joined HLA alleles
-    main = main.drop(columns=mhcI + mhcII).replace(["n", "Vn"],[np.nan, np.nan])
+    main = main.drop(columns=mhcI + mhcII).replace(["0", "V0"],[np.nan, np.nan])
 
     writer.save()
 
@@ -192,7 +192,7 @@ def set_select(col, df, mhcI_ca, mhcII_ca):
 
 if __name__ == '__main__':
     run()
-    print("Correspodence Analysis successful. Please check the results in the \output\CA directory.")
+    print("Correspodence Analysis successful. Please check the results in the ~\output\CA directory.")
     print("The stats folder contains a spreadsheet with sheets showing information of the data, "
           "such as frequency of alleles and interquartile ranges of responses. Graphs of all"
           " antigen analysis can be found in the graph folder.")

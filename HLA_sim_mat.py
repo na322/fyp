@@ -138,6 +138,6 @@ def run():
 
 if __name__ == '__main__':
     run()
-    print("Similarity matrices creation successful. They have been saved in the database/sim_matrix folder. Heatmaps of the similarity matrices can also be found in this folder.")
+    print("Similarity matrices creation successful. They have been saved in the ~/database/sim_matrix folder. Heatmaps of the similarity matrices can also be found in this folder.")
     print("Please proceed to HLA_clusterer.py for clustering of HLA alleles.")
     input('Press ENTER to exit')
