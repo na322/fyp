@@ -12,4 +12,4 @@ HLA_retriver.py parses the HLA '.txt' files to extract the amino acid sequences 
 
 Alignment.py is a program with a command line interface that enables users to compare HLA alleles and see differences in their amino acid sequences.
 
-Samples of results for one antigen and cluster memberships can be found in the samples folder.
+Samples of results for one antigen and cluster memberships can be found in the result_samples folder.
