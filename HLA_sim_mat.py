@@ -22,8 +22,9 @@ matrix = blosum100 #substitution matrix used for calculation of similarity betwe
 
 def sim_calc(types, i, j):
     """
-    calculation of similarity between two alleles, as seen in Alignment.py, will be used in similarity matrix creation of
-    MHC I and MHC II alleles
+    Calculation of similarity between two alleles, as seen in Alignment.py, will be used in similarity matrix creation of
+    MHC I and MHC II alleles. Returns a tuple containing the indexes for the types and the similarity value, for unpacking
+    into the similarity matrix later in the function "fill()". Had to be implemented this way due to multiprocessing.
     """
     a1 = HLA_dict[types[i]]
     a2 = HLA_dict[types[j]]
@@ -36,7 +37,8 @@ def sim_calc(types, i, j):
 
 def fill(arr, type_list):
     """
-    Used to fill in values for similarity matrix creation using similarity value calculated by the function sim_calc
+    Used to fill in values for similarity matrix creation using similarity value calculated by the function sim_calc.
+    Since the calculations are CPU-heavy, uses multiprocessing to take advantage of additional CPU cores.
     """
     result = []
     pool = mp.Pool(mp.cpu_count())
@@ -102,7 +104,7 @@ def run():
     os.chdir("{}/databases/sim_matrix".format(os.path.dirname(__file__)))
 
     #fills up the similarity matrices using allele similarity calculated by global alignment of the two sequences(scores calculated by blosum100 matrix)
-    print("Forming similarity matrix for MHC alleles. The computation will take up at least a few minutes, please wait.")
+    print("Forming similarity matrix for MHC alleles. The computation might take a while, please wait.")
     fill(sim_matrix, types)
     print("MHC I alleles similarity matrix done...now computing MHC II alleles similarity matrix.")
     fill(sim_matrix2, types2)

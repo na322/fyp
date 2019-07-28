@@ -87,7 +87,7 @@ def run():
     plt.close()
     print(data2[:,1])
 
-    #saving of cluster memberships into .json files which can be located in /databases
+    #saving of cluster memberships into .json files which can be located in ~/databases
     dict = pd.DataFrame(data=labels, index=datamhcI.index, columns=['sim_class']).to_dict()["sim_class"]
     dict2 = pd.DataFrame(data=labels2, index=datamhcII.index, columns=['sim_class']).to_dict()["sim_class"]
 
